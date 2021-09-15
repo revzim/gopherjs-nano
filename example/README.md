@@ -1,4 +1,5 @@
-# [web app /example](https://github.com/revzim/gopherjs-nano/example)
+# [gopherjs-nano | nanojs web app example](https://github.com/revzim/gopherjs-nano)
+
 ![EXAMPLE](./../example.PNG)
 ### GOPHERJS EXAMPLE OF A PRETTY MUCH 1:1 OF THE ORIGINAL CHAT EXAMPLE
 [ORIGINAL NANO CHAT EXAMPLE](https://github.com/lonng/nano/tree/master/examples/demo/chat)
