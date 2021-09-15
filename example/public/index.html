@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<style>
+  * {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<body>
+  <div id="app">
+    <v-app>
+      <v-main>
+        <v-container class="text-center" fluid>
+          <v-row>
+            <v-col cols="8">
+              <v-list style="height: 50vh; max-height: 50vh; overflow-y: auto;" id="chat-box">
+                <v-list-item v-for="msg in messages">[<span style="color:rgb(32, 150, 197);">{{msg.name}}</span>]{{msg.content}}
+                </v-list-item>
+              </v-list>
+            </v-col>
+            <v-col cols="4">
+            <v-card align="center">
+              <v-text-field disabled label="Username" v-model="username" hide-details="auto"></v-text-field>
+              <v-text-field label="Message" v-model="inputMsg" hide-details="auto" @keydown.enter="SendMessage"></v-text-field>
+              <v-btn large color="success" @click="SendMessage">{{ sendBtnLabel }}</v-btn>
+            </v-card>
+          </v-col>
+          </v-row>
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+  <script src="./main.js"></script>
+</body>
+
+</html>
