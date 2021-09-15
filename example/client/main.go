@@ -22,6 +22,15 @@ type (
 	}
 )
 
+const (
+	VueAppMountElement = "#app"
+	NanoPort           = 8081
+	NanoPath           = "/ws"
+	SendBtnLabel       = "SEND"
+)
+
+var ()
+
 func (m *Model) SendMessage() {
 	log.Println("sending msg:", m.InputMessage)
 	nanoJS := js.Global.Get("nano")
@@ -39,15 +48,6 @@ func (m *Model) AddMessage(data map[string]interface{}) {
 		chatBoxElem.Set("scrollTop", chatBoxElem.Get("scrollHeight"))
 	}, 100)
 }
-
-const (
-	VueAppMountElement = "#app"
-	NanoPort           = 8081
-	NanoPath           = "/ws"
-	SendBtnLabel       = "SEND"
-)
-
-var ()
 
 func InitNanoClient(m *Model, port int, gsPath string) *js.Object {
 	loc := js.Global.Get("window").Get("location")
@@ -94,7 +94,13 @@ func InitNanoClient(m *Model, port int, gsPath string) *js.Object {
 		nanoJS.Request("room.join", nil, onJoin)
 	}
 
-	nanoJS.Init(loc.Get("hostname").String(), port, gsPath, nanoJSCallback)
+	nanoOpts := &nanojs.Opts{
+		Host:         loc.Get("hostname").String(),
+		Port:         port,
+		Path:         gsPath,
+		CallbackFunc: nanoJSCallback,
+	}
+	nanoJS.Init(nanoOpts)
 
 	return nanoJS.Object
 }

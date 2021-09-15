@@ -26138,7 +26138,7 @@ $packages["github.com/revzim/gopherjs-nano/jscode/nano"] = (function() {
 	return $pkg;
 })();
 $packages["github.com/revzim/gopherjs-nano"] = (function() {
-	var $pkg = {}, $init, js, nano, NanoJS, mapType, funcType, funcType$1, ptrType, ptrType$1, New;
+	var $pkg = {}, $init, js, nano, NanoJS, Opts, mapType, funcType, funcType$1, ptrType, ptrType$1, ptrType$2, New;
 	js = $packages["github.com/gopherjs/gopherjs/js"];
 	nano = $packages["github.com/revzim/gopherjs-nano/jscode/nano"];
 	NanoJS = $pkg.NanoJS = $newType(0, $kindStruct, "nanojs.NanoJS", true, "github.com/revzim/gopherjs-nano", true, function(Object_) {
@@ -26149,21 +26149,36 @@ $packages["github.com/revzim/gopherjs-nano"] = (function() {
 		}
 		this.Object = Object_;
 	});
+	Opts = $pkg.Opts = $newType(0, $kindStruct, "nanojs.Opts", true, "github.com/revzim/gopherjs-nano", true, function(Host_, Port_, Path_, CallbackFunc_) {
+		this.$val = this;
+		if (arguments.length === 0) {
+			this.Host = "";
+			this.Port = 0;
+			this.Path = "";
+			this.CallbackFunc = $throwNilPointerError;
+			return;
+		}
+		this.Host = Host_;
+		this.Port = Port_;
+		this.Path = Path_;
+		this.CallbackFunc = CallbackFunc_;
+	});
 	mapType = $mapType($String, $emptyInterface);
 	funcType = $funcType([], [], false);
 	funcType$1 = $funcType([mapType], [], false);
-	ptrType = $ptrType(NanoJS);
-	ptrType$1 = $ptrType(js.Object);
+	ptrType = $ptrType(Opts);
+	ptrType$1 = $ptrType(NanoJS);
+	ptrType$2 = $ptrType(js.Object);
 	New = function() {
 		return new NanoJS.ptr($global.nano);
 	};
 	$pkg.New = New;
-	NanoJS.ptr.prototype.Init = function(host, port, path, cb) {
-		var cb, host, njs, path, port;
+	NanoJS.ptr.prototype.Init = function(opts) {
+		var njs, opts;
 		njs = this;
-		njs.Object.init($externalize($makeMap($String.keyFor, [{ k: "host", v: new $String(host) }, { k: "port", v: new $Int(port) }, { k: "path", v: new $String(path) }]), mapType), $externalize(cb, funcType));
+		njs.Object.init($externalize($makeMap($String.keyFor, [{ k: "host", v: new $String(opts.Host) }, { k: "port", v: new $Int(opts.Port) }, { k: "path", v: new $String(opts.Path) }]), mapType), $externalize(opts.CallbackFunc, funcType));
 	};
-	NanoJS.prototype.Init = function(host, port, path, cb) { return this.$val.Init(host, port, path, cb); };
+	NanoJS.prototype.Init = function(opts) { return this.$val.Init(opts); };
 	NanoJS.ptr.prototype.On = function(msgKey, cb) {
 		var cb, msgKey, njs;
 		njs = this;
@@ -26176,8 +26191,9 @@ $packages["github.com/revzim/gopherjs-nano"] = (function() {
 		njs.Object.request($externalize(reqKey, $String), $externalize(data, $emptyInterface), $externalize(cb, funcType$1));
 	};
 	NanoJS.prototype.Request = function(reqKey, data, cb) { return this.$val.Request(reqKey, data, cb); };
-	ptrType.methods = [{prop: "Init", name: "Init", pkg: "", typ: $funcType([$String, $Int, $String, funcType], [], false)}, {prop: "On", name: "On", pkg: "", typ: $funcType([$String, funcType$1], [], false)}, {prop: "Request", name: "Request", pkg: "", typ: $funcType([$String, $emptyInterface, funcType$1], [], false)}];
-	NanoJS.init("", [{prop: "Object", name: "Object", embedded: true, exported: true, typ: ptrType$1, tag: ""}]);
+	ptrType$1.methods = [{prop: "Init", name: "Init", pkg: "", typ: $funcType([ptrType], [], false)}, {prop: "On", name: "On", pkg: "", typ: $funcType([$String, funcType$1], [], false)}, {prop: "Request", name: "Request", pkg: "", typ: $funcType([$String, $emptyInterface, funcType$1], [], false)}];
+	NanoJS.init("", [{prop: "Object", name: "Object", embedded: true, exported: true, typ: ptrType$2, tag: ""}]);
+	Opts.init("", [{prop: "Host", name: "Host", embedded: false, exported: true, typ: $String, tag: ""}, {prop: "Port", name: "Port", embedded: false, exported: true, typ: $Int, tag: ""}, {prop: "Path", name: "Path", embedded: false, exported: true, typ: $String, tag: ""}, {prop: "CallbackFunc", name: "CallbackFunc", embedded: false, exported: true, typ: funcType, tag: ""}]);
 	$init = function() {
 		$pkg.$init = function() {};
 		/* */ var $f, $c = false, $s = 0, $r; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
@@ -33647,7 +33663,7 @@ $packages["main"] = (function() {
 	};
 	Model.prototype.AddMessage = function(data) { return this.$val.AddMessage(data); };
 	InitNanoClient = function(m, port, gsPath) {
-		var gsPath, loc, m, nanoJS, nanoJSCallback, port;
+		var gsPath, loc, m, nanoJS, nanoJSCallback, nanoOpts, port;
 		loc = $global.window.location;
 		nanoJS = nanojs.New();
 		nanoJSCallback = (function $b() {
@@ -33701,7 +33717,8 @@ $packages["main"] = (function() {
 			$s = -1; return;
 			/* */ } return; } if ($f === undefined) { $f = { $blk: $b }; } $f.onJoin = onJoin; $f.onMembers = onMembers; $f.onNewUser = onNewUser; $f.$s = $s; $f.$r = $r; return $f;
 		});
-		nanoJS.Init($internalize(loc.hostname, $String), port, gsPath, nanoJSCallback);
+		nanoOpts = new nanojs.Opts.ptr($internalize(loc.hostname, $String), port, gsPath, nanoJSCallback);
+		nanoJS.Init(nanoOpts);
 		return nanoJS.Object;
 	};
 	$pkg.InitNanoClient = InitNanoClient;

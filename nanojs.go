@@ -9,6 +9,13 @@ type (
 	NanoJS struct {
 		*js.Object
 	}
+
+	Opts struct {
+		Host         string // `js:"host"`
+		Port         int    // `js:"port"`
+		Path         string // `js:"path"`
+		CallbackFunc func() // `js:"cb"`
+	}
 )
 
 func New() *NanoJS {
@@ -19,12 +26,12 @@ func New() *NanoJS {
 
 // Init --
 // cb IS WHERE TO INIT ALL CLIENT NANO FUNCTIONALITY
-func (njs *NanoJS) Init(host string, port int, path string, cb func()) {
+func (njs *NanoJS) Init(opts *Opts) {
 	njs.Call("init", map[string]interface{}{
-		"host": host,
-		"port": port,
-		"path": path,
-	}, cb)
+		"host": opts.Host,
+		"port": opts.Port,
+		"path": opts.Path,
+	}, opts.CallbackFunc)
 }
 
 // On --
@@ -32,6 +39,7 @@ func (njs *NanoJS) On(msgKey string, cb func(map[string]interface{})) {
 	njs.Call("on", msgKey, cb)
 }
 
+// Request --
 func (njs *NanoJS) Request(reqKey string, data interface{}, cb func(data map[string]interface{})) {
 	njs.Call("request", reqKey, data, cb)
 }
