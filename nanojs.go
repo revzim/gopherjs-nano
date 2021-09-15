@@ -1,4 +1,4 @@
-package gopherjs-nano
+package nanojs
 
 // revzim <https://github.com/revzim>
 // nanojs | gopherjs-nano - gopherjs client wrapper for https://github.com/nano-ecosystem/nano-websocket-client
