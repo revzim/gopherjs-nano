@@ -5,5 +5,5 @@
 ## IMPORTANT
 ### DO NOT INCLUDE NANO (STARX) CLIENT SIDE, THIS LIBRARY WILL AUTO INJECT THE CLIENT SDK
 
-# [web app /example](https://github.com/revzim/gopherjs-nano/example)
+# [web app /example](https://github.com/revzim/gopherjs-nano/tree/master/example)
 ![EXAMPLE](./example.PNG)
