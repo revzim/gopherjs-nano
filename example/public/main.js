@@ -26127,7 +26127,7 @@ $packages["fmt"] = (function() {
 })();
 
 	}).call($global);
-$packages["./jscode/nano"] = (function() {
+$packages["github.com/revzim/gopherjs-nano/jscode/nano"] = (function() {
 	var $pkg = {}, $init;
 	$init = function() {
 		$pkg.$init = function() {};
@@ -26138,9 +26138,9 @@ $packages["./jscode/nano"] = (function() {
 	return $pkg;
 })();
 $packages["github.com/revzim/gopherjs-nano"] = (function() {
-	var $pkg = {}, $init, nano, js, NanoJS, mapType, funcType, funcType$1, ptrType, ptrType$1, New;
-	nano = $packages["./jscode/nano"];
+	var $pkg = {}, $init, js, nano, NanoJS, mapType, funcType, funcType$1, ptrType, ptrType$1, New;
 	js = $packages["github.com/gopherjs/gopherjs/js"];
+	nano = $packages["github.com/revzim/gopherjs-nano/jscode/nano"];
 	NanoJS = $pkg.NanoJS = $newType(0, $kindStruct, "nanojs.NanoJS", true, "github.com/revzim/gopherjs-nano", true, function(Object_) {
 		this.$val = this;
 		if (arguments.length === 0) {
@@ -26181,8 +26181,8 @@ $packages["github.com/revzim/gopherjs-nano"] = (function() {
 	$init = function() {
 		$pkg.$init = function() {};
 		/* */ var $f, $c = false, $s = 0, $r; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
-		$r = nano.$init(); /* */ $s = 1; case 1: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
-		$r = js.$init(); /* */ $s = 2; case 2: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$r = js.$init(); /* */ $s = 1; case 1: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
+		$r = nano.$init(); /* */ $s = 2; case 2: if($c) { $c = false; $r = $r.$blk(); } if ($r && $r.$blk !== undefined) { break s; }
 		/* */ } return; } if ($f === undefined) { $f = { $blk: $init }; } $f.$s = $s; $f.$r = $r; return $f;
 	};
 	$pkg.$init = $init;

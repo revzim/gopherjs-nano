@@ -1,4 +1,4 @@
-# gopherjs-nano | nanojs
+# [gopherjs-nano | nanojs](https://github.com/revzim/gopherjs-nano)
 
 ## simple gopherjs wrapper for the [nano golang game framework](https://github.com/lonng/nano) [client sdk](https://github.com/nano-ecosystem/nano-websocket-client)
 
